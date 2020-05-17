@@ -1,11 +1,11 @@
-<template>
-  <div class="home">
+<!-- <template>
+  <div class="home"> -->
     <!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
-    <Game />
+    <!-- <Game />
   </div>
-</template>
-
+</template> -->
+<!-- 
 <script>
 // @ is an alias to /src
 import Game from "@/components/Game.vue";
@@ -16,4 +16,4 @@ export default {
     Game
   }
 };
-</script>
+</script> -->
