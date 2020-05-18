@@ -1,7 +1,7 @@
 <template>
   <div class="fab">
     <h1>This is the TheGame.vue template</h1>
-    <div v-if="store.getters.phase === 'pregame'">
+    <div v-if="isPregame()">
       <input
       name="playerName"
 			v-model="newFabPlayer"
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import store from "@/store/index.js"
+import store from "@/store/index"
 import TheBoard from "./TheBoard.vue"
 import FabPlayer from "./FabPlayer.vue"
 // import TradingCard from "./TradingCard.vue"
@@ -89,7 +89,13 @@ export default {
       this.store.commit('setWhoseTurn', this.players[0])
 
     }
+  },
+  computed: {
+    isPregame () {
+      return store.getters.phase === "pregame"
+    }
   }
+
 }
 </script>
 

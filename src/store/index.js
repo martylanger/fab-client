@@ -10,10 +10,10 @@ export default new Vuex.Store({
   },
   mutations: {
     setWhoseTurn(state, whoseTurn) {
-      state.whoseTurn = whoseTurn
+      state.whoseTurn = whoseTurn;
     },
     setPhase(state, phase) {
-      state.phase = phase
+      state.phase = phase;
     }
   },
   getters: {

@@ -1,6 +1,6 @@
 <template>
   <div class="player">
-    <div v-if="Store.state.phase === 'pregame'">
+    <div v-if="isPregame()">
       <li>
         {{ player.name }}
         <button @click="$emit('remove', player.id)">
@@ -37,6 +37,11 @@ export default {
     player: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    isPregame () {
+      return store.getters.phase === "pregame"
     }
   }
 }
