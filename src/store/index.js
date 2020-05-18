@@ -4,11 +4,21 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
+  state: {
+    whoseTurn: "",
+    phase: ""
+  },
   mutations: {
-    setWhoseTurn(arg) {
-      this.state.whoseTurn = arg;
+    setWhoseTurn(state, whoseTurn) {
+      state.whoseTurn = whoseTurn
+    },
+    setPhase(state, phase) {
+      state.phase = phase
     }
+  },
+  getters: {
+    whoseTurn: state => state.whoseTurn,
+    phase: state => state.phase
   },
   actions: {},
   modules: {}

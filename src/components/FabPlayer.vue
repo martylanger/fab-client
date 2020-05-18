@@ -20,18 +20,19 @@
 </template>
 
 <script>
-import TradingCard from "./TradingCard.vue"
-import PointCard from "./PointCard.vue"
+// import TradingCard from "./TradingCard.vue"
+// import PointCard from "./PointCard.vue"
+import { store } from "@/store/index.js"
 
 export default {
-  components: {
-    TradingCard, PointCard
-  },
-  data () {
-    return {
-      player: this.props.player
-    }
-  }
+  // components: {
+  //   TradingCard, PointCard
+  // },
+  // data () {
+  //   return {
+  //     player: this.props.player
+  //   }
+  // },
   props: {
     player: {
       type: Object,

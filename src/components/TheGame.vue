@@ -1,31 +1,32 @@
 <template>
   <div class="fab">
-
-    <div v-if="Store.state.phase === 'pregame'">
+    <h1>This is the TheGame.vue template</h1>
+    <div v-if="store.getters.phase === 'pregame'">
       <input
-			v-model="newPlayer"
-			placeholder="Player Name"
-			@keydown.enter="addPlayer"
+      name="playerName"
+			v-model="newFabPlayer"
+			placeholder="FabPlayer Name"
+			@keydown.enter="addFabPlayer"
 			type="text"
 			class="input"
   		>
       <ul v-if="players.length">
-  			<Player
+  			<FabPlayer
   				v-for="player in players"
   				:key="player.id"
   				:player="player"
-  				@remove="removePlayer"
+  				@remove="removeFabPlayer"
   			/>
   		</ul>
   		<p v-else>
   			No players entered. Start by adding a new player.
   		</p>
-      <button v-on:click="createGame">Start New Game</button>
+      <button v-on:click="createTheGame">Start New TheGame</button>
     </div>
 
-    <div v-if="Store.state.phase === 'gamePlay'">
-      <Player v-for="player in players" :key="player.playerId"></Player>
-      <Board></Board>
+    <div v-if="store.getters.phase === 'gamePlay'">
+      <FabPlayer v-for="player in players" :key="player.playerId"></FabPlayer>
+      <TheBoard></TheBoard>
     </div>
 
   </div>
@@ -33,23 +34,24 @@
 
 <script>
 import store from "@/store/index.js"
-import Board from "./Board.vue"
-import Player from "./Player.vue"
-import TradingCard from "./TradingCard.vue"
-import PointCard from "./PointCard.vue"
+import TheBoard from "./TheBoard.vue"
+import FabPlayer from "./FabPlayer.vue"
+// import TradingCard from "./TradingCard.vue"
+// import PointCard from "./PointCard.vue"
 
-let nextPlayerId = 0
+let nextFabPlayerId = 0
 
 export default {
-  name: "Game",
+  name: "TheGame",
   components: {
-    Board, Player, TradingCard, PointCard
+    // TheBoard, FabPlayer, TradingCard, PointCard
+    TheBoard, FabPlayer
   },
   data () {
     return {
-      whoseTurn: store.state.whoseTurn,
+      whoseTurn: store.getters.whoseTurn,
       players: [],
-      newPlayer: '',
+      newFabPlayer: '',
       board: {}
     }
   },
@@ -57,34 +59,35 @@ export default {
     // msg: String
   },
   methods: {
-    addPlayer () {
-      const trimmedText = this.newPlayer.trim()
+    addFabPlayer () {
+      const trimmedText = this.newFabPlayer.trim()
       if (trimmedText) {
         this.players.push({
-          id: nextPlayerId++,
+          id: nextFabPlayerId++,
           name: trimmedText,
           spices: [],
           pointCards: [],
           tradingCards: []
         })
-      this.newPlayer = ''
+      this.newFabPlayer = ''
       }
     },
-    removePlayer (idToRemove) {
+    removeFabPlayer (idToRemove) {
 			this.players = this.players.filter(player => {
 				return player.id !== idToRemove
 			})
-		}
-    createGame () {
+		},
+    createTheGame () {
       // Randomize players[] in-place using Durstenfeld shuffle algorithm
       // Thanks to https://stackoverflow.com/a/12646864
-      for (let i = players.length - 1; i > 0; i--) {
+      for (let i = this.players.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1))
         let temp = this.players[i]
         this.players[i] = this.players[j]
         this.players[j] = temp
       }
-      store.mutations.setWhoseTurn(this.players[0])
+      this.store.commit('setWhoseTurn', this.players[0])
+
     }
   }
 }
