@@ -1,115 +1,93 @@
 <template>
   <div class="fab">
-    <player v-for="player in players" :key="player.playerId"></player>
-    <!-- <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br />
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener"
-        >vue-cli documentation</a
-      >.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel"
-          target="_blank"
-          rel="noopener"
-          >babel</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router"
-          target="_blank"
-          rel="noopener"
-          >router</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-vuex"
-          target="_blank"
-          rel="noopener"
-          >vuex</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint"
-          target="_blank"
-          rel="noopener"
-          >eslint</a
-        >
-      </li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li>
-        <a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a>
-      </li>
-      <li>
-        <a href="https://forum.vuejs.org" target="_blank" rel="noopener"
-          >Forum</a
-        >
-      </li>
-      <li>
-        <a href="https://chat.vuejs.org" target="_blank" rel="noopener"
-          >Community Chat</a
-        >
-      </li>
-      <li>
-        <a href="https://twitter.com/vuejs" target="_blank" rel="noopener"
-          >Twitter</a
-        >
-      </li>
-      <li>
-        <a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a>
-      </li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li>
-        <a href="https://router.vuejs.org" target="_blank" rel="noopener"
-          >vue-router</a
-        >
-      </li>
-      <li>
-        <a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-devtools#vue-devtools"
-          target="_blank"
-          rel="noopener"
-          >vue-devtools</a
-        >
-      </li>
-      <li>
-        <a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener"
-          >vue-loader</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-          rel="noopener"
-          >awesome-vue</a
-        >
-      </li>
-    </ul> -->>
+
+    <div v-if="Store.state.phase === 'pregame'">
+      <input
+			v-model="newPlayer"
+			placeholder="Player Name"
+			@keydown.enter="addPlayer"
+			type="text"
+			class="input"
+  		>
+      <ul v-if="players.length">
+  			<Player
+  				v-for="player in players"
+  				:key="player.id"
+  				:player="player"
+  				@remove="removePlayer"
+  			/>
+  		</ul>
+  		<p v-else>
+  			No players entered. Start by adding a new player.
+  		</p>
+      <button v-on:click="createGame">Start New Game</button>
+    </div>
+
+    <div v-if="Store.state.phase === 'gamePlay'">
+      <Player v-for="player in players" :key="player.playerId"></Player>
+      <Board></Board>
+    </div>
+
   </div>
 </template>
 
 <script>
+import store from "@/store/index.js"
+import Board from "./Board.vue"
+import Player from "./Player.vue"
+import TradingCard from "./TradingCard.vue"
+import PointCard from "./PointCard.vue"
+
+let nextPlayerId = 0
+
 export default {
   name: "Game",
+  components: {
+    Board, Player, TradingCard, PointCard
+  },
+  data () {
+    return {
+      whoseTurn: store.state.whoseTurn,
+      players: [],
+      newPlayer: '',
+      board: {}
+    }
+  },
   props: {
-    msg: String
+    // msg: String
+  },
+  methods: {
+    addPlayer () {
+      const trimmedText = this.newPlayer.trim()
+      if (trimmedText) {
+        this.players.push({
+          id: nextPlayerId++,
+          name: trimmedText,
+          spices: [],
+          pointCards: [],
+          tradingCards: []
+        })
+      this.newPlayer = ''
+      }
+    },
+    removePlayer (idToRemove) {
+			this.players = this.players.filter(player => {
+				return player.id !== idToRemove
+			})
+		}
+    createGame () {
+      // Randomize players[] in-place using Durstenfeld shuffle algorithm
+      // Thanks to https://stackoverflow.com/a/12646864
+      for (let i = players.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1))
+        let temp = this.players[i]
+        this.players[i] = this.players[j]
+        this.players[j] = temp
+      }
+      store.mutations.setWhoseTurn(this.players[0])
+    }
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
