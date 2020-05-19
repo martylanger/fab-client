@@ -41,6 +41,7 @@ import FabPlayer from "./FabPlayer.vue"
 
 let nextFabPlayerId = 0
 
+
 export default {
   name: "TheGame",
   components: {
