@@ -1,16 +1,16 @@
 <template>
   <div class="fab">
-
     <div class="container">
       <div class="row">
-
-
         <h1 class="col-12">This is the Game.vue template</h1>
         <!-- <p>phase is {{ phase }}</p>
         <p>whoseTurn is {{ whoseTurn }}</p>
         <p>The players are {{ players }}</p>
         <p>players.length: {{ players.length }}</p> -->
-        <div v-if="this.phase === 'pregame'">
+      </div>
+
+      <div class="row">
+        <div class="col-12" v-if="this.phase === 'pregame'">
           <input
             name="playerName"
       			v-model="newPlayer"
@@ -34,23 +34,26 @@
       			No players entered. Start by adding a new player.
       		</p>
           <button v-on:click="createGame">Start New Game</button>
-        </div>
+        </div>  <!-- pregame -->
+      </div>  <!-- row -->
+    </div>
 
+    <div class="container">
+      <div class="row">
         <div v-if="this.phase === 'gamePlay'">
           <PlayerFull
             v-for="player in players"
             :key="player.id"
             :player="player"
           />
-          <TheBoard></TheBoard>
-
-        </div>
-      <!-- row -->
-      </div>
-    <!-- container -->
-    </div>
-  <!-- fab -->
-  </div>
+          <TheBoard
+            :whoseTurn="whoseTurn"
+            :players="players"
+          />
+        </div>  <!-- gameplay -->
+      </div>  <!-- row -->
+    </div>  <!-- container -->
+  </div>  <!-- fab -->
 </template>
 
 <script>
@@ -63,7 +66,7 @@ import PlayerFull from "./PlayerFull.vue"
 
 let nextPlayerId = 0
 let phase = "pregame"
-let whoseTurn = ''
+let whoseTurn = {}
 
 export default {
   name: "TheGame",
@@ -111,9 +114,14 @@ export default {
         this.players[i] = this.players[j]
         this.players[j] = temp
       }
-      // this.store.commit('setWhoseTurn', this.players[0])
-      this.whoseTurn = this.players[0].name
+
+      // Set whoseTurn to the first player
+      this.whoseTurn = this.players[0]
       this.phase = 'gamePlay'
+      for (let i = 0; i < this.players.length; i++) {
+        // Add starter tradingCards to each player
+      }
+      // Use a switch to add starter fabrics to each player
     }
   }
 }
