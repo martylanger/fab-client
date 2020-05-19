@@ -1,48 +1,55 @@
 <template>
-  <div class="player">
-    <div v-if="isPregame()">
+  <div class="player-name">
+    <!-- <div v-if="this.phase === 'pregame'"> -->
       <li>
         {{ player.name }}
         <button @click="$emit('remove', player.id)">
           X
         </button>
       </li>
-    </div>
-    <div v-if="Store.state.phase === 'gamePlay'">
+    <!-- </div>
+    <div v-if="this.props.phase === 'gamePlay'">
       <ul>
         <li>{{ this.props.player.name }}</li>
         <li>{{ this.props.player.spices }}</li>
         <li>{{ this.props.player.tradingCards }}</li>
         <li>{{ this.props.player.pointCards }}</li>
       </ul>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 // import TradingCard from "./TradingCard.vue"
 // import PointCard from "./PointCard.vue"
-import { store } from "@/store/index.js"
+// import { store } from "@/store/index.js"
+
+// let phase = this.props
 
 export default {
+  name: "PlayerName",
   // components: {
   //   TradingCard, PointCard
   // },
-  // data () {
-  //   return {
-  //     player: this.props.player
-  //   }
-  // },
+  data () {
+    return {
+      // player: this.props.player,
+    }
+  },
   props: {
+    phase: {
+      type: String,
+      required: false
+    },
     player: {
       type: Object,
       required: true
     }
-  },
-  computed: {
-    isPregame () {
-      return store.getters.phase === "pregame"
-    }
+  // }
+  // computed: {
+  //   isPregame () {
+  //     return phase === "pregame"
+  //   }
   }
 }
 </script>

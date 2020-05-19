@@ -4,38 +4,31 @@
     <p>This is {{ phase }}</p>
     <p>{{ whoseTurn }}'s turn</p>
     <p>The players are {{ players }}</p>
-    <p>players.length: {{ players.length }}</p>
-    <div v-if="this.phase === 'pregame'">
+    <div v-if="isPregame()">
       <input
       name="playerName"
-			v-model="newPlayer"
+			v-model="newFabPlayer"
 			placeholder="FabPlayer Name"
 			@keydown.enter="addFabPlayer"
 			type="text"
 			class="input"
   		>
       <ul v-if="players.length">
-        <p>My 1st if works</p>
-  			<PlayerName
+  			<FabPlayer
   				v-for="player in players"
   				:key="player.id"
   				:player="player"
-          :phase="phase"
   				@remove="removeFabPlayer"
   			/>
   		</ul>
   		<p v-else>
   			No players entered. Start by adding a new player.
   		</p>
-      <button v-on:click="createTheGame">Start New Game</button>
+      <button v-on:click="createTheGame">Start New TheGame</button>
     </div>
 
     <div v-if="this.phase === 'gamePlay'">
-      <PlayerFull
-      v-for="player in players"
-      :key="player.id"
-      :player="player"
-    />
+      <FabPlayer v-for="player in players" :key="player.playerId"></FabPlayer>
       <TheBoard></TheBoard>
     </div>
 
@@ -45,12 +38,11 @@
 <script>
 // import store from "@/store/index"
 import TheBoard from "./TheBoard.vue"
-import PlayerName from "./PlayerName.vue"
-import PlayerFull from "./PlayerFull.vue"
+import FabPlayer from "./FabPlayer.vue"
 // import TradingCard from "./TradingCard.vue"
 // import PointCard from "./PointCard.vue"
 
-let nextPlayerId = 0
+let nextFabPlayerId = 0
 let phase = "pregame"
 let whoseTurn = ''
 
@@ -58,14 +50,14 @@ export default {
   name: "TheGame",
   components: {
     // TheBoard, FabPlayer, TradingCard, PointCard
-    TheBoard, PlayerName, PlayerFull
+    TheBoard, FabPlayer
   },
   data () {
     return {
       phase: phase,
       whoseTurn: whoseTurn,
       players: [],
-      newPlayer: '',
+      newFabPlayer: '',
       board: {}
     }
   },
@@ -74,16 +66,16 @@ export default {
   },
   methods: {
     addFabPlayer () {
-      const trimmedText = this.newPlayer.trim()
+      const trimmedText = this.newFabPlayer.trim()
       if (trimmedText) {
         this.players.push({
-          id: nextPlayerId++,
+          id: nextFabPlayerId++,
           name: trimmedText,
           spices: [],
           pointCards: [],
           tradingCards: []
         })
-      this.newPlayer = ''
+      this.newFabPlayer = ''
       }
     },
     removeFabPlayer (idToRemove) {
@@ -101,8 +93,15 @@ export default {
         this.players[j] = temp
       }
       // this.store.commit('setWhoseTurn', this.players[0])
-      this.whoseTurn = this.players[0].name
-      this.phase = 'gamePlay'
+      this.whoseTurn = this.players[0]
+    },
+    isPregame () {
+      return phase === "pregame"
+    }
+  },
+  computed: {
+    isGamePlay () {
+      return this.phase === "gamePlay"
     }
   }
 }
