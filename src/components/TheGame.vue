@@ -1,44 +1,55 @@
 <template>
   <div class="fab">
-    <h1>This is the Game.vue template</h1>
-    <!-- <p>phase is {{ phase }}</p>
-    <p>whoseTurn is {{ whoseTurn }}</p>
-    <p>The players are {{ players }}</p>
-    <p>players.length: {{ players.length }}</p> -->
-    <div v-if="this.phase === 'pregame'">
-      <input
-      name="playerName"
-			v-model="newPlayer"
-			placeholder="Player Name"
-			@keydown.enter="addPlayer"
-			type="text"
-			class="input"
-  		>
-      <ul v-if="players.length">
-        <!-- <p>My 1st if works</p> -->
-  			<PlayerName
-  				v-for="player in players"
-  				:key="player.id"
-  				:player="player"
-          :phase="phase"
-  				@remove="removePlayer"
-  			/>
-  		</ul>
-  		<p v-else>
-  			No players entered. Start by adding a new player.
-  		</p>
-      <button v-on:click="createGame">Start New Game</button>
-    </div>
 
-    <div v-if="this.phase === 'gamePlay'">
-      <PlayerFull
-      v-for="player in players"
-      :key="player.id"
-      :player="player"
-    />
-      <TheBoard></TheBoard>
-    </div>
+    <div class="container">
+      <div class="row">
 
+
+        <h1 class="col-12">This is the Game.vue template</h1>
+        <!-- <p>phase is {{ phase }}</p>
+        <p>whoseTurn is {{ whoseTurn }}</p>
+        <p>The players are {{ players }}</p>
+        <p>players.length: {{ players.length }}</p> -->
+        <div v-if="this.phase === 'pregame'">
+          <input
+            name="playerName"
+      			v-model="newPlayer"
+      			placeholder="Player Name"
+      			@keydown.enter="addPlayer"
+      			type="text"
+      			class="input"
+      		>
+          <h2>Players</h2>
+          <ul v-if="players.length">
+            <!-- <p>My 1st if works</p> -->
+      			<PlayerName
+      				v-for="player in players"
+      				:key="player.id"
+      				:player="player"
+              :phase="phase"
+      				@remove="removePlayer"
+      			/>
+      		</ul>
+      		<p v-else>
+      			No players entered. Start by adding a new player.
+      		</p>
+          <button v-on:click="createGame">Start New Game</button>
+        </div>
+
+        <div v-if="this.phase === 'gamePlay'">
+          <PlayerFull
+            v-for="player in players"
+            :key="player.id"
+            :player="player"
+          />
+          <TheBoard></TheBoard>
+
+        </div>
+      <!-- row -->
+      </div>
+    <!-- container -->
+    </div>
+  <!-- fab -->
   </div>
 </template>
 
