@@ -1,33 +1,33 @@
 <template>
   <div class="fab">
-    <h1>This is the TheGame.vue template</h1>
-    <p>This is {{ phase }}</p>
-    <p>{{ whoseTurn }}'s turn</p>
+    <h1>This is the Game.vue template</h1>
+    <!-- <p>phase is {{ phase }}</p>
+    <p>whoseTurn is {{ whoseTurn }}</p>
     <p>The players are {{ players }}</p>
-    <p>players.length: {{ players.length }}</p>
+    <p>players.length: {{ players.length }}</p> -->
     <div v-if="this.phase === 'pregame'">
       <input
       name="playerName"
 			v-model="newPlayer"
-			placeholder="FabPlayer Name"
-			@keydown.enter="addFabPlayer"
+			placeholder="Player Name"
+			@keydown.enter="addPlayer"
 			type="text"
 			class="input"
   		>
       <ul v-if="players.length">
-        <p>My 1st if works</p>
+        <!-- <p>My 1st if works</p> -->
   			<PlayerName
   				v-for="player in players"
   				:key="player.id"
   				:player="player"
           :phase="phase"
-  				@remove="removeFabPlayer"
+  				@remove="removePlayer"
   			/>
   		</ul>
   		<p v-else>
   			No players entered. Start by adding a new player.
   		</p>
-      <button v-on:click="createTheGame">Start New Game</button>
+      <button v-on:click="createGame">Start New Game</button>
     </div>
 
     <div v-if="this.phase === 'gamePlay'">
@@ -57,7 +57,7 @@ let whoseTurn = ''
 export default {
   name: "TheGame",
   components: {
-    // TheBoard, FabPlayer, TradingCard, PointCard
+    // TheBoard, PlayerName, PlayerFull, TradingCard, PointCard
     TheBoard, PlayerName, PlayerFull
   },
   data () {
@@ -73,7 +73,7 @@ export default {
 
   },
   methods: {
-    addFabPlayer () {
+    addPlayer () {
       const trimmedText = this.newPlayer.trim()
       if (trimmedText) {
         this.players.push({
@@ -86,12 +86,12 @@ export default {
       this.newPlayer = ''
       }
     },
-    removeFabPlayer (idToRemove) {
+    removePlayer (idToRemove) {
 			this.players = this.players.filter(player => {
 				return player.id !== idToRemove
 			})
 		},
-    createTheGame () {
+    createGame () {
       // Randomize players[] in-place using Durstenfeld shuffle algorithm
       // Thanks to https://stackoverflow.com/a/12646864
       for (let i = this.players.length - 1; i > 0; i--) {
