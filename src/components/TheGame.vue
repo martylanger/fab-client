@@ -70,7 +70,8 @@ let phase = "pregame"
 let whoseTurn = {}
 let board = {
   tradingCards: [],
-  pointCards: []
+  pointCards: [],
+  freeFabrics: [null, null, null, null, null]
 }
 
 // All trading cards specify what the player gives and what they get in return
@@ -141,6 +142,49 @@ board.tradingCards.push({
   upgrade: 3,
   inHand: true
 })
+
+// Buying pointCards are the primary way to score points and win
+// Each pointCard costs a specific set of fabrics
+// The point value of each pointCard is simply the sum of its fabrics
+const pointCardDeck = [
+  [1, 1, 4, 4],
+  [2, 2, 3, 3],
+  [3, 3, 3, 3],
+  [1, 1, 1, 2, 3, 4],
+  [2, 2, 3, 3, 3],
+  [1, 1, 3, 3, 4, 4],
+  [1, 1, 4, 4, 4],
+  [1, 1, 2, 4],
+  [2, 2, 4, 4],
+  [1, 1, 3, 3, 3],
+  [3, 3, 4, 4, 4],
+  [1, 1, 1, 3, 3],
+  [1, 2, 3, 4, 4, 4],
+  [4, 4, 4, 4, 4],
+  [1, 3, 3, 4],
+  [1, 1, 2, 2, 3, 3],
+  [1, 1, 2, 2],
+  [1, 1, 1, 4, 4],
+  [2, 2, 2, 4, 4],
+  [1, 2, 3, 4],
+  [3, 3, 4, 4],
+  [2, 2, 4, 4, 4],
+  [1, 1, 2, 2, 2],
+  [2, 2, 2, 2],
+  [2, 2, 2, 3, 3],
+  [3, 3, 3, 3, 3],
+  [2, 2, 3, 3, 4, 4],
+  [3, 3, 3, 4, 4],
+  [2, 2, 3, 4],
+  [1, 2, 3, 3, 3, 4],
+  [2, 2, 2, 2, 2],
+  [1, 1, 3, 3],
+  [1, 1, 2, 2, 4, 4],
+  [1, 2, 2, 2, 3, 4],
+  [4, 4, 4, 4],
+  [1, 1, 1, 2, 2]
+]
+pointCardDeck.forEach(card => board.pointCards.push(card))
 
 export default {
   name: "TheGame",
