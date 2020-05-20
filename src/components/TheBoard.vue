@@ -33,5 +33,19 @@ import PointCardSpace from "./PointCardSpace.vue"
 export default {
   components: {
     PointCardSpace, TradingCardSpace
+  },
+  props: {
+    whoseTurn: {
+      type: Object,
+      required: false
+    },
+    players: {
+      type: Array,
+      required: true
+    },
+    board: {
+      type: Object,
+      required: true
+    }
   }
 }

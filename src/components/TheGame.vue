@@ -129,7 +129,6 @@ for (let i = 0; i < tradingCardDeck.length; i++) {
       id: i+3,
       give: tradingCardDeck[i][0],
       get: tradingCardDeck[i][1],
-      owner: null,
       inHand: true
     }
   )
@@ -140,7 +139,6 @@ for (let i = 0; i < tradingCardDeck.length; i++) {
 board.tradingCards.push({
   id: 2,
   upgrade: 3,
-  owner: null,
   inHand: true
 })
 
@@ -198,13 +196,11 @@ export default {
             id: 0,
             give: [],
             get: [1, 1],
-            owner: this.players[i],
             inHand: true
           },
           {
             id: 1,
             upgrade: 2,
-            owner: this.players[i],
             inHand: true
           }
         )

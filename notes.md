@@ -19,15 +19,15 @@ game {
       tradingCards
     },
     tradingCards {
-      action,
-      owner,
+      give
+      get
+      (upgrade)
       inHand
     },
     pointCards {
       value,
       recipe,
-      token,
-      owner
+      token
     }
   },
   // The actions that I need
