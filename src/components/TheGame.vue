@@ -2,11 +2,7 @@
   <div class="fab">
     <div class="container">
       <div class="row">
-        <h1 class="col-12">This is the Game.vue template</h1>
-        <!-- <p>phase is {{ phase }}</p>
-        <p>whoseTurn is {{ whoseTurn }}</p>
-        <p>The players are {{ players }}</p>
-        <p>players.length: {{ players.length }}</p> -->
+        <h1 class="col-12">Fabric Trader</h1>
       </div>
 
       <div class="row">
@@ -21,7 +17,6 @@
       		>
           <h2>Players</h2>
           <ul v-if="players.length">
-            <!-- <p>My 1st if works</p> -->
       			<PlayerName
       				v-for="player in players"
       				:key="player.id"
@@ -39,12 +34,13 @@
     </div>
 
     <div v-if="this.phase === 'gamePlay'">
-      <div class="container">
+      <div class="container-fluid">
         <div class="row">
           <PlayerFull
             v-for="player in players"
             :key="player.id"
             :player="player"
+            :whoseTurn="whoseTurn"
           />
         </div>
         <TheBoard
