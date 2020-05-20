@@ -58,12 +58,9 @@
 </template>
 
 <script>
-// import store from "@/store/index"
 import TheBoard from "./TheBoard.vue"
 import PlayerName from "./PlayerName.vue"
 import PlayerFull from "./PlayerFull.vue"
-// import TradingCard from "./TradingCard.vue"
-// import PointCard from "./PointCard.vue"
 
 let nextPlayerId = 0
 let phase = "pregame"
