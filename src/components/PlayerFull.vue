@@ -1,7 +1,6 @@
 <template>
-  <div class="player-full col-3">
-    <h2 v-if="this.myTurn">{{ player.name }}</h2>
-    <p v-else>{{ player.name }}</p>
+  <div class="player-full col-4" v-bind:class="myTurn">
+    <h4>{{ player.name }}</h4>
     <p>Fabrics: {{ player.fabrics }}</p>
     <TradingCard
       v-for="tradingCard in this.player.tradingCards"
@@ -42,8 +41,18 @@ export default {
   },
   computed: {
     myTurn: function () {
-      return this.player === this.whoseTurn
+      if (this.player === this.whoseTurn) {
+        return 'its-my-turn'
+      } else {
+        return ''
+      }
     }
   }
 }
 </script>
+
+<style>
+.its-my-turn {
+  background-color: beige;
+}
+</style>

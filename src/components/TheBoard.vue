@@ -15,12 +15,12 @@
 
     <div class="row tradingCards">
       <!-- <div class="col-2 deck trading-deck"></div> -->
-      <TradingCard space=0 :tradingCard="this.board.tradingCards[0]" :fabrics="this.board.freeFabrics[0]" />
-      <TradingCard space=1 :tradingCard="this.board.tradingCards[1]" :fabrics="this.board.freeFabrics[1]" />
-      <TradingCard space=2 :tradingCard="this.board.tradingCards[2]" :fabrics="this.board.freeFabrics[2]" />
-      <TradingCard space=3 :tradingCard="this.board.tradingCards[3]" :fabrics="this.board.freeFabrics[3]" />
-      <TradingCard space=4 :tradingCard="this.board.tradingCards[4]" :fabrics="this.board.freeFabrics[4]" />
-      <TradingCard space=5 :tradingCard="this.board.tradingCards[5]" />
+      <TradingCard class="col-2" space=0 :tradingCard="this.board.tradingCards[0]" :fabrics="this.board.freeFabrics[0]" />
+      <TradingCard class="col-2" space=1 :tradingCard="this.board.tradingCards[1]" :fabrics="this.board.freeFabrics[1]" />
+      <TradingCard class="col-2" space=2 :tradingCard="this.board.tradingCards[2]" :fabrics="this.board.freeFabrics[2]" />
+      <TradingCard class="col-2" space=3 :tradingCard="this.board.tradingCards[3]" :fabrics="this.board.freeFabrics[3]" />
+      <TradingCard class="col-2" space=4 :tradingCard="this.board.tradingCards[4]" :fabrics="this.board.freeFabrics[4]" />
+      <TradingCard class="col-2" space=5 :tradingCard="this.board.tradingCards[5]" />
     </div>
   </div>
 </template>

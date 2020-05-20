@@ -1,5 +1,5 @@
 <template>
-  <div class="col-2 trading-card">
+  <div class="trading-card">
     <h6 v-if="this.tradingCard.upgrade">Upgrade {{ this.tradingCard.upgrade }}</h6>
     <div v-else>
       <h6>{{ this.tradingCard.give }}</h6>
@@ -38,7 +38,7 @@ export default {
 .trading-card {
   border: 5px solid #1C6EA4;
   border-radius: 10px;
-  height: auto;
+  height: 120px;
 }
 /* use $zindex to place fabrics on the card */
 </style>
