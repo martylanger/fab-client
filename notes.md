@@ -19,7 +19,6 @@ game {
       tradingCards
     },
     tradingCards {
-      fabrics,
       action,
       owner,
       inHand
